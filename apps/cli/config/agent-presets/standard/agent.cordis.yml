@@ -249,3 +249,15 @@
   config:
     fetch: false
     searchTimeoutMs: 60000
+
+# Offload image understanding to a vision endpoint (GLM-4V by default) so a
+# text-only reasoning model can "see" images on demand. The API key resolves
+# per request through the credential seam, never through configuration.
+- id: tool-vision
+  name: '@deepseek-ai/dsh-tool-vision'
+
+# Transparent image transcription: pasted images are converted to text at
+# `agent/pre-step`, so the text-only reasoning model can receive them without
+# switching. Requires the apiproxy image-admission gate to stay open.
+- id: agent-vision
+  name: '@deepseek-ai/dsh-agent-vision'
